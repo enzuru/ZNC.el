@@ -5,16 +5,10 @@ Aint that exciting?
 
 #### Quickstart 
 
-```sh
-$ git clone https://github.com/sshirokov/ZNC.el
 ```
-
-Make sure the contents of the repo, or just [znc.el](/znc.el) is on your load-path.
-Then add this to your `init.el` or equivalent
-
-```elisp
-;; Install
-(require 'znc)
+(use-package znc
+  :ensure t
+  :after erc)
 ```
 
 Configure it for your specific instance from within emacs once installed.
@@ -26,7 +20,6 @@ M-x customize-group znc RET
 alternatively, put this in your init.el/configuration file..
 
 ```
-(require 'znc)
 (setq znc-servers
     '(("example.com" PORT# t
       ((NETWORK-SLUG "USERNAME" "PASSWORD")
