@@ -84,9 +84,9 @@ some of the quirks that arise from using it with a naive ERC. "
                          (current-buffer)))))
     (if buffer
         (cl-loop for kidbuffer in pending
-              do (znc-kill-buffer-always kidbuffer)
-              initially (znc-kill-buffer-always buffer)
-              finally return `(buffer ,@pending))
+                 do (znc-kill-buffer-always kidbuffer)
+                 initially (znc-kill-buffer-always buffer)
+                 finally return `(buffer ,@pending))
       (message "%s is unknown or not currently running" network))))
 
 ;;;###autoload
@@ -94,12 +94,12 @@ some of the quirks that arise from using it with a naive ERC. "
   "Connect to all known networks"
   (interactive "P")
   (cl-loop for network in (znc-walk-all-servers :each 'znc-endpoint-slug)
-        do
-          (message "Connecting to: %s" network)
-          (if disconnect
-              (znc-discard network)
-            (znc-erc network))
-        collecting network))
+           do
+            (message "Connecting to: %s" network)
+             (if disconnect
+                 (znc-discard network)
+               (znc-erc network))
+           collecting network))
 
 
 ;; Advice
@@ -134,8 +134,8 @@ some of the quirks that arise from using it with a naive ERC. "
 
 ;;; Traversal
 (cl-defun znc-walk-all-servers (&key (each (lambda (&rest r) (mapcar 'identity r)))
-                                   (pred (lambda (&rest _) t))
-                                   (first nil))
+                                     (pred (lambda (&rest _) t))
+                                     (first nil))
   "Walk every defined server and user pair calling `each' every time `pred' is non-nil
 
 Both functions are called as: (apply f slug host port user pass)
@@ -144,11 +144,11 @@ Both functions are called as: (apply f slug host port user pass)
 `first' if non-nil, return the car of the result"
     (funcall (if first 'car 'identity)
              (cl-loop for (host port ssl users) in znc-servers
-                   appending (cl-loop for (slug user pass) in users collecting
-                     `(,slug ,host ,port ,ssl ,user ,pass)) into endpoints
-                   finally return (cl-loop for endpoint in endpoints
-                     if (apply pred endpoint)
-                     collect (apply each endpoint)))))
+                      appending (cl-loop for (slug user pass) in users collecting
+                        `(,slug ,host ,port ,ssl ,user ,pass)) into endpoints
+                      finally return (cl-loop for endpoint in endpoints
+                        if (apply pred endpoint)
+                        collect (apply each endpoint)))))
 
 ;;; Traversal helpers
 (defun znc-walk-slugp (slug)
