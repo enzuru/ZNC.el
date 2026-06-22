@@ -1,4 +1,4 @@
-;;; znc.el --- ZNC + ERC 
+;;; znc.el --- ZNC + ERC  -*- lexical-binding: t; -*-
 ;;; 
 
 ;; Author: Yaroslav Shirokov
